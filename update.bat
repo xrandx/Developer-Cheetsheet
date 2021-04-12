@@ -1,4 +1,4 @@
-set /p commit_log=è¯·è¾“å…¥ commit æ—¥å¿—ä¿¡æ¯:
+set /p commit_log=ÇëÊäÈë commit ÈÕÖ¾ĞÅÏ¢:
 git status
 git add -A
 git commit -m "%commit_log%"
