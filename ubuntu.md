@@ -1,16 +1,92 @@
-
-
-
-
 # Ubuntu系统
 
-## 一、开放
+## desktop 初始化
+
+删除多余
+
+```bash
+sudo apt-get remove libreoffice-common
+sudo apt-get remove thunderbird totem rhythmbox simple-scan gnome-mahjongg aisleriot gnome-mines cheese transmission-common gnome-sudoku
+```
+
+### 0 换源
+
+编辑 `/etc/apt/sources.list`文件, 在文件最前面添加以下条目(操作前请做好相应备份)：
+
+```bash
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+```
+
+然后执行命令：
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+清华
+
+```bash
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+```
+
+163
+
+```bash
+deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse
+```
+
+阿里
+
+```bash
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+```
+
+
+
+## 配置 WordPress
+
+### 一、开放
 
 ```
 sudo -i
 ```
-
-
 
 安装相关依赖
 
@@ -42,21 +118,49 @@ rm -rf /etc/iptables
 reboot
 ```
 
-
-
 [自动安装 - OneinStack](https://oneinstack.com/auto/)
 
 ```bash
 wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack-full.tar.gz && ./oneinstack/install.sh --nginx_option 1 --php_option 5 --phpcache_option 1 --php_extensions memcached --db_option 2 --dbinstallmethod 1 --dbrootpwd zz1f38f7 --pureftpd  --memcached  --reboot 
 ```
 
+安装 WordPress
+
+```bash
+echo "LANG=zh_CN.utf-8" >> /etc/environment && \
+echo "" && \
+echo "LC_ALL=zh_CN.utf-8" >> /etc/environment 
+source ~/.bashrc
+
+```
+
+```bash
+cd /data/wwwroot/benearyou.com
+wget http://wordpress.org/latest.tar.gz
+tar xzvf latest*
+cd wordpress*
+sudo rsync -avz . /data/wwwroot/benearyou.com
+cd ..
+rm -rf latest.tar.gz
+rm -rf wordpress
+sudo chown -R www /data/wwwroot
+sudo chgrp -R www /data/wwwroot
+```
+
+替换 WordPress Gravatar 为 v2ex 头像源
+
+```php
+// 替换 WordPress Gravatar 为 v2ex 头像源
+function theme_get_avatar( $avatar ) {
+    $avatar = preg_replace("/\/\/(www|\d|secure|cn).gravatar.com\/avatar\//", "//cdn.v2ex.com/gravatar/", $avatar);
+    return $avatar;
+}
+add_filter('get_avatar', 'theme_get_avatar');
+```
 
 
 
-
-
-
-## 二、安装 NGINX 和 MariaDB
+### 二、安装 Mysql
 
 使用下面命令进行安装：
 
@@ -64,20 +168,14 @@ wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack
 $ sudo apt update && sudo apt install -y nginx mariadb-server
 ```
 
-## 三、配置 MariaDB
+### 三、配置 MySQL 
 
 安装完成后，首次运行 MySQL / MariaDB 的设置，默认会问我们输入密码，我们直接回车即可。
 
-然后输入 `N` 并且回车，就可以重置密码。
+连接到 MySQL 监控器：
 
-```
-$ sudo mysql_secure_installation
-```
-
-连接到 MariaDB 监控器：
-
-```
-$ sudo mariadb
+```bash
+sudo mysql
 ```
 
 新建一个数据库：
@@ -88,13 +186,12 @@ CREATE DATABASE example_db;
 
 赋予权限（注意修改其中的用户名和密码）：
 
-```bash
-GRANT ALL PRIVILEGES  ON example_db.* TO 'username'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+```sql
+GRANT ALL PRIVILEGES  ON wordpress.* TO 'wp_admin'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
 
-GRANT ALL PRIVILEGES  ON *.* TO 'root'@'localhost' IDENTIFIED BY '962464sql' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES  ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
 
-mysql -u root -p -h 152.67.216.95  
-
+mysql -u root -p -h xxx.xxx.xxx.xx
 ```
 
 更新权限：
@@ -107,7 +204,7 @@ exit
 再次连接：
 
 ```bash
-$ mariadb -u username -p
+mysql -u username -p
 ```
 
 确保可以正常连接：
