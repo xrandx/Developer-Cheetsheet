@@ -94,3 +94,11 @@ index-url = http://pypi.douban.com/simple
 trusted-host = pypi.douban.com
 ```
 
+
+
+打开终端时自动激活 conda 默认环境：
+
+```bash
+conda config --set auto_activate_base true
+```
+
