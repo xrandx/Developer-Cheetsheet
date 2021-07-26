@@ -78,7 +78,58 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted univer
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 ```
 
+## 配置 Git
 
+```bash
+sudo apt install git-all
+```
+
+
+
+## WSL
+### 配置 WSL2 访问 Windows 上的代理
+
+有两个关键步骤： 1. WSL2 中配置的代理要指向 Windows 的 IP； 2. Windows 上的代理客户端需要允许来自本地局域网的请求；
+
+由于 Linux 子系统也是通过 Windows 访问网络，所以 Linux 子系统中的网关指向的是 Windows，DNS 服务器指向的也是 Windows，基于这两个特性，我们可以将 Windows 的 IP 读取出来。
+
+例如，在 Ubuntu 子系统中，通过 `cat /etc/resolv.conf` 查看 DNS 服务器 IP。
+
+```bash
+ 172.24.208.1
+```
+
+可以看到 DNS 服务器是 `172.24.208.1`，通过环境变量 `ALL_PROXY` 配置代理：
+
+```bash
+export http_proxy="socks5://172.24.208.1:1080"
+export https_proxy="socks5://172.24.208.1:1080"
+curl ip.sb # 看看是不是代理成功
+```
+
+### 后台运行
+
+在Linux终端运行命令的时候，在命令末尾加上 & 符号，就可以让程序在后台运行
+
+```bash
+java Main &
+```
+
+对于所有运行的程序，我们可以用jobs –l 指令查看
+
+```bash
+jobs -l
+```
+
+也可以直接终止后台运行的程序，使用 kill 命令
+
+```bash
+kill %1
+```
+
+`ctrl + z`
+
+可以将一个正在前台执行的命令放到后台，并且处于暂停状态。
 
 ## 配置 WordPress
 
