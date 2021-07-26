@@ -6,7 +6,22 @@ git config --global user.name ”xrandx”
 git config --global user.email ”kevtyle@hotmail.com”
 
 ssh-keygen -t rsa -C ”kevtyle@hotmail.com”
- 
+```
+
+## 关联
+
+```bash
+git clone git@github.com:xrandx/Developer-Cheetsheet.git
+
+git pull origin master
+```
+
+以后获取用：
+
+```bash
+git pull origin master 
+#	or
+git pull origin main
 ```
 
 
