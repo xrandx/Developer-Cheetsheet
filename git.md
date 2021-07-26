@@ -1,3 +1,16 @@
+## 初始化
+
+```bash
+git config --global user.name ”xrandx”
+
+git config --global user.email ”kevtyle@hotmail.com”
+
+ssh-keygen -t rsa -C ”kevtyle@hotmail.com”
+ 
+```
+
+
+
 ## 查看
 
 查看本地分支
