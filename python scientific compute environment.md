@@ -16,6 +16,8 @@ conda config --set show_channel_urls yes
 
 anaconda 的配置文件 `Windows 下的 C:\Users\用户名\.condarc`：
 
+
+
 ```yaml
 channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
@@ -32,9 +34,6 @@ custom_channels:
   menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-proxy_servers:
-  http://127.0.0.1:1080
-  https://127.0.0.1:1080
 ssl_verify: true
 ```
 
@@ -79,8 +78,17 @@ conda install -c conda-forge jupyterlab
 
 ```bash
 pip install scikit-multilearn
-
 pip install liac-arff
+```
+
+
+
+为了和conda保持一致，选择还是清华的镜像源。步骤如下：
+
+（1）修改 ~/.pip/pip.conf 文件。
+
+```bash
+vi ~/.pip/pip.conf
 ```
 
 
@@ -100,5 +108,18 @@ trusted-host = pypi.douban.com
 
 ```bash
 conda config --set auto_activate_base true
+```
+
+
+
+最近在创建新的 Python Virtualenv 时出现了 `Missing dependencies for SOCKS support` 的错误，经检查后发现为 Python 本身在没有安装 pysocks 时并不支持 socks5 代理，而环境变量中则设置了 socks5 的代理。
+
+解决方法：
+
+```bash
+# unset all_proxy && unset ALL_PROXY ]
+# 取消所有 socks 代理
+
+conda install pysocks
 ```
 

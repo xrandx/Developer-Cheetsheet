@@ -36,16 +36,15 @@ sudo apt-get upgrade
 清华
 
 ```bash
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
 ```
 
 163
@@ -130,6 +129,25 @@ kill %1
 `ctrl + z`
 
 可以将一个正在前台执行的命令放到后台，并且处于暂停状态。
+
+
+
+### 解决WSL2中Vmmem内存占用过大问题
+
+> [解决WSL2中Vmmem内存占用过大问题](https://www.cnblogs.com/coding8832/p/14445835.html)
+
+1. 按下Windows + R 键，输入 `%UserProfile%` 并运行进入用户文件夹
+2. 新建文件 `.wslconfig` ，然后记事本编辑
+3. 填入以下内容并保存, memory为系统内存上限，这里我限制最大2gb，可根据自身电脑配置设置
+
+```
+[wsl2]
+memory=2GB
+swap=0
+localhostForwarding=true
+```
+
+4 然后启动cmd命令提示符，输入 `wsl --shutdown` 来关闭当前的子系统
 
 ## 配置 WordPress
 
