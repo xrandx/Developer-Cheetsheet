@@ -20,13 +20,16 @@ anaconda 的配置文件 `Windows 下的 C:\Users\用户名\.condarc`：
 
 ```yaml
 channels:
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/win-64/
+  - defaults
+show_channel_urls: true
+channel_alias: https://mirrors.tuna.tsinghua.edu.cn/anaconda
+default_channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/pro
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
-show_channel_urls: true
 custom_channels:
   conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
@@ -79,6 +82,7 @@ conda install -c conda-forge jupyterlab
 ```bash
 pip install scikit-multilearn
 pip install liac-arff
+pip install xgboost
 ```
 
 

@@ -106,12 +106,14 @@ export https_proxy="socks5://172.24.208.1:1080"
 curl ip.sb # 看看是不是代理成功
 ```
 
+
+
 ### 后台运行
 
 在Linux终端运行命令的时候，在命令末尾加上 & 符号，就可以让程序在后台运行
 
 ```bash
-java Main &
+python standalone.py &
 ```
 
 对于所有运行的程序，我们可以用jobs –l 指令查看
@@ -129,6 +131,20 @@ kill %1
 `ctrl + z`
 
 可以将一个正在前台执行的命令放到后台，并且处于暂停状态。
+
+## 查看端口占用
+
+```bash
+netstat -ap | grep 8001
+
+lsof -i:8001
+
+#	杀进程
+
+kill -9 5921 #	+PID号
+```
+
+
 
 
 
