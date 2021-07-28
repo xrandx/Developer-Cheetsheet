@@ -95,14 +95,14 @@ sudo apt install git-all
 例如，在 Ubuntu 子系统中，通过 `cat /etc/resolv.conf` 查看 DNS 服务器 IP。
 
 ```bash
- 172.24.208.1
+ 172.18.0.1
 ```
 
-可以看到 DNS 服务器是 `172.24.208.1`，通过环境变量 `ALL_PROXY` 配置代理：
+可以看到 DNS 服务器是 ` 172.18.0.1`，通过环境变量 `ALL_PROXY` 配置代理：
 
 ```bash
-export http_proxy="socks5://172.24.208.1:1080"
-export https_proxy="socks5://172.24.208.1:1080"
+export http_proxy="socks5://172.18.0.1:1080"
+export https_proxy="socks5://172.18.0.1:1080"
 curl ip.sb # 看看是不是代理成功
 ```
 
