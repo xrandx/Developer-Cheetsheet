@@ -12,8 +12,6 @@ ssh-keygen -t rsa -C ”kevtyle@hotmail.com”
 
 ```bash
 git clone git@github.com:xrandx/Developer-Cheetsheet.git
-
-git pull origin master
 ```
 
 以后获取用：
