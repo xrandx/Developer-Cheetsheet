@@ -24,9 +24,16 @@ cp skin_test.pickle skin_train.pickle file_dir
 
 显示文件大小
 
+
 方便阅读的格式显示test目录所占空间情况：
 
 ```bash
 du -h test
 ```
+
+
+
+
+[Tmux 使用教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2019/10/tmux.html)
+
 
