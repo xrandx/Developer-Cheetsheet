@@ -1,9 +1,9 @@
 ## 初始化
 
 ```bash
-git config --global user.name ”username”
+git config user.name ”username”
 
-git config --global user.email ”username@domain.com”
+git config user.email ”username@domain.com”
 
 ssh-keygen -t rsa -C ”username@domain.com”
 ```
