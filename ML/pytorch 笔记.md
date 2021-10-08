@@ -40,3 +40,35 @@ model.train() 让model变成训练模式，此时 dropout和batch normalization�
 
 [pytorch中的embedding词向量的使用_david0611的博客-CSDN博客_pytorch 词向量](https://blog.csdn.net/david0611/article/details/81090371)
 
+
+
+## squeeze & unsqueeze
+
+```python
+x = torch.tensor([[[1, 2, 3, 4], [5, 5, 5, 5]]])
+
+#	unsqueeze 在指定位置增加一个维度，其维数为 1（扩充）
+#	squeeze 删除某个维数为 1 的维度（压缩）
+
+print(x.size())
+#	torch.Size([1, 2, 4])
+
+print(torch.unsqueeze(x, dim=2).size())
+#	torch.Size([1, 2, 1, 4])
+
+print(torch.unsqueeze(x, dim=3).size())
+#	torch.Size([1, 2, 4, 1])
+
+
+print(torch.squeeze(x, dim=0).size())
+#	torch.Size([2, 4])
+
+```
+
+
+
+view
+
+  **print**(x.size())
+
+  **print**(x.view(-1, 1, 2, 4))
